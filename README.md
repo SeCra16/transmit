@@ -83,3 +83,43 @@ The project is structured as such
 [/lib/dbtools.js] [Function] DatabaseTools.insert(table, id, column, value)
 
 * Inserts a value into a specified table with a specified id and value. Refer to Implementation for more details on usage
+
+
+## Implementation
+
+
+### DatabaseTools sample Implementation
+
+```
+var credentialInstance = new CredentialStore(server, user, password, database);
+// Create a CredentialStore instance
+
+var transportStoreInstance = new TransportStore();
+//Create a TransportStore instance
+
+var databaseInstance = new DatabaseTools(credentialInstance, transportStoreInstance);
+//Create a DatabaseTools instance with the TransportStore and CredentialStore instances as arguments
+
+
+// Create a callback function
+var callback = function() {
+  var eid = transportStoreInstance.getData()
+  ...
+  // Do something w/eid
+}
+
+// Calling autoinsert
+databaseInstance.autoinsert("sample_table", "name", "John Doe", callback);
+
+databaseInstance.insert("sample_table", 200, "name", "Jane Doe");
+
+```
+
+Note that the table after the `autoinsert` and `insert` command will look like:
+
+`SELECT * FROM sample_table`
+
+| id  | name     |
+|-----|----------|
+| 1   | John Doe |
+| 200 | Jane Doe |
