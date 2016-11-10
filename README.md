@@ -7,6 +7,9 @@
 - NodeJS (Download it [here](https://nodejs.org/en/download/current/))
 - NPM Modules (thus far)
   - mysql
+  - node-timestamp
+  - express (for frontend)
+  - formidable (also for frontend)
 
 ### Project Setup
 
@@ -19,7 +22,7 @@ The project is structured as such
 
 ```
 .
-├── app.js
+├── frontend.js
 ├── db_credentials.txt
 ├── lib
 │   ├── credentialStore.js
