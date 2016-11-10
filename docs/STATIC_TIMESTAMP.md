@@ -4,21 +4,22 @@ Location: /lib/staticTimestamp.js
 
 Required NPM: node-timestamp
 
-Refrence: `var timestamp = require('./lib/timstamp.js')`
+Refrence: `var timestamp = require('./lib/staticTimestamp.js')`
 
-### Overview 
 
-This module will return a dynamic timestamp. That it will fetch the current time every time a getter is called. 
+### Overview
 
-Useful if you only want to call the object once and call getters multiple times. 
+This module provides a timestamp that is static. That is the timestamp is gotten when the object is created.
 
-Scroll down to the Usage section for more details.
+Useful if you want to get the time at object creation and then get various parts of the timestamp using getters.
+
+Scroll down to the usage section for usage details. 
 
 ### Components
 
 **NOTE: Output's are listed for your formatting pleasure**
 
-[Object] Timestamp()
+[Object] StaticTimestamp()
 
 * Creates a new timestamp object
 
@@ -117,11 +118,12 @@ Scroll down to the Usage section for more details.
 
     `45`
     
-    
-### Usage 
 
+### Usage   
+   
+Please note. The time is captured in the object on creation. So the function below will return the same thing
+For dynamic timestamps please use `timestamp.js`
 
-This timestamp will return dynamic current timestamps.
 ```
 
 console.log(Timestamp.getSecond()); //Gets the current seconds
@@ -139,8 +141,8 @@ Output:
 
 // Three second delay
 
-> 04
+> 01
 ```
 
 
-Whereas StaticTimestamp returns 01 both times. 
+
