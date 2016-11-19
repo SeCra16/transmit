@@ -1,15 +1,9 @@
 var DatabaseTools = require('./lib/dbutils');
-var CredentialStore = require('./lib/credentialStore');
-var TransportStore = require('./lib/transportStore');
-async = require('async');
-
-var user = "user1";
-var password = "user1";
-var server = "localhost";
-var database = "fileshare_system";
+var CredentialStore = require('./lib/store/credentialStore');
 
 
-var credentialInstance = new CredentialStore(server, user, password, database);
+
+var credentialInstance = new CredentialStore();
 var transportStoreInstance = new TransportStore();
 var databaseInstance = new DatabaseTools(credentialInstance, transportStoreInstance);
 
@@ -24,3 +18,10 @@ var databaseInstance = new DatabaseTools(credentialInstance, transportStoreInsta
 //
 //
 // databaseInstance.select("test2", 200);
+
+
+
+var table='test';
+var column='url';
+var value='aaa';
+databaseInstance.contains(table, column, value, callback);

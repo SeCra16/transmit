@@ -28,7 +28,7 @@ The project is structured as such
 │   ├── credentialStore.js
 │   ├── db_template.js
 │   ├── dbutils.js
-│   └── transportStore.js
+│   └── callbackStore.js
 ├── package.json
 ├── README.md
 └── node_modules

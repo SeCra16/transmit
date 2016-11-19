@@ -3,47 +3,60 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
+///////////////////////// Other includes
+var FilenameStore = require('../lib/store/filenameStore');
+var Filer = require('../components/filer');
+
+
+/////////////DECLARATIONS
+var fileStore = new FilenameStore();
+var filer = new Filer(fileStore);
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-   res.sendFile(path.join(__dirname, 'views/index.html'));
+    res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.post('/upload', function(req, res) {
+app.post('/upload', function(req, res){
 
-//    Create a new incoming form object
+    // create an incoming form object
     var form = new formidable.IncomingForm();
 
-//    Specify multiple uploads
+    // specify that we want to allow the user to upload multiple files in a single request
     form.multiples = true;
 
-//    Store all uploads in the uploads folder
+    // store all uploads in the /uploads directory
     form.uploadDir = path.join(__dirname, '/uploads');
 
-//    Every time a file has been uploaded sucessfully
-//    rename it to the original name
-    form.on('file', function(field, file){
+    // every time a file has been uploaded successfully,
+    // rename it to it's orignal name
+    form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name));
+        fileStore.setAll(file.name, form.uploadDir, path.join(form.uploadDir, file.name));
     });
 
-//    log any errors that occur
-    form.on('error', function(err){
-       console.log(`An error has occured: ${err}`);
+    // log any errors that occur
+    form.on('error', function(err) {
+        console.log('An error has occured: \n' + err);
     });
 
-//    Send response to client on completion
-    form.on('end', function(){
-       res.end('success');
+    // once all the files have been uploaded, send a response to the client
+    form.on('end', function() {
+        // Test Functions, Remove Later
+        // console.log("Success!");
+        // console.log(fileUtils.getFilename());
+        // console.log(fileUtils.getDirectory());
+        // console.log(fileUtils.getFullpath());
+        filer.setTimestamp();
     });
 
-//    Parse the incomming request containing the form data
+    // parse the incoming request containing the form data
     form.parse(req);
 
 });
 
-// Run the server
 var server = app.listen(3000, function(){
-   console.log("Server is running on port 3000");
+    console.log('Server listening on port 3000');
 });
-

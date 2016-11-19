@@ -1,4 +1,6 @@
-# dbtools.js
+# dbutils.js
+
+##### NOTE: datastore.js has been renamed callbackStore.js
 
 
 [/lib/credentialStore.js] [Object] CredentialStore(server, user, password, database)
@@ -23,11 +25,11 @@
 
 ---
 
-[/lib/transportStore.js] [Object] TransportStore()
+[/lib/callbackStore.js] [Object] TransportStore()
 
 * Creates a TransportStore object, useful for moving data around without inheritance
 
-[/lib/transportStore.js] [Function] TransportStore.setData()
+[/lib/callbackStore.js] [Function] TransportStore.setData()
 
 * Sets the data in the TransportStore object
 
@@ -52,6 +54,27 @@
 [/lib/dbtools.js] [Function] DatabaseTools.insert(table, id, column, value)
 
 * Inserts a value into a specified table with a specified id and value. Refer to Implementation for more details on usage
+
+[/lib/dbtools.js] [Function] DatabaseTools.contains(table, column, value, callback)
+
+* Checks if `table` with `column` contains `value`. Returns true/false with transportStore and a callback.
+
+* Going to be useful for fakepath, namely determining if a string has already been used
+
+
+[/lib/dbtools.js] [Function] DatabaseTools.fk_insert(table, column, ftable, id, value)
+
+* Inserts a value into a table whose ID is a foriegn key from another table
+
+`table`: local table
+
+`column`: local column
+
+`ftable`: foriegn table
+
+`id`: foreign id (you should have this in a callback)
+
+`value`: the value being inserted into the local table
 
 
 ## Implementation
