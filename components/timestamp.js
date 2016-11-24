@@ -22,22 +22,15 @@ Timestamp.prototype.setTimestamp = function(callback) {
     var month = staticTimestampInstance.getMonth();
     var day = staticTimestampInstance.getDay();
     var year = staticTimestampInstance.getYear();
-    dbtools.autoinsert('file_statistics', 'timestamp', timestamp, function(id){
-        dbtools.update('file_statistics', id, 'hour', hour);
-        dbtools.update('file_statistics', id, 'minute', minute); // minute
-        dbtools.update('file_statistics', id, 'second', second); // second
-        dbtools.update('file_statistics', id, 'month', month); // month
-        dbtools.update('file_statistics', id, 'day', day); // day
-        dbtools.update('file_statistics', id, 'year', year);
+    dbtools.autoinsert('timestamp', 'timestamp', timestamp, function(id){
+        dbtools.update('timstamp', id, 'hour', hour);
+        dbtools.update('timestamp', id, 'minute', minute); // minute
+        dbtools.update('timestamp', id, 'second', second); // second
+        dbtools.update('timestamp', id, 'month', month); // month
+        dbtools.update('timestamp', id, 'day', day); // day
+        dbtools.update('timestamp', id, 'year', year);
         callback(id);
     });
-
-
-
-    // dbtools.autoinsert('file_statistics', 'timestamp', timestamp, function(id){
-
-    //
-    // });
 
 };
 module.exports = Timestamp;
