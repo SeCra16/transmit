@@ -8,11 +8,11 @@ ALTER TABLE expiration_date AUTO_INCREMENT = 1;
 DELETE FROM false_directory;
 ALTER TABLE false_directory AUTO_INCREMENT = 1;
 
-DELETE FROM file_description;
-ALTER TABLE file_description AUTO_INCREMENT = 1;
+DELETE FROM file_metadata;
+ALTER TABLE file_metadata AUTO_INCREMENT = 1;
 
-DELETE FROM file_statistics;
-ALTER TABLE file_statistics AUTO_INCREMENT = 1;
+DELETE FROM timestamp;
+ALTER TABLE timestamp AUTO_INCREMENT = 1;
 
 DELETE FROM true_directory;
 ALTER TABLE true_directory AUTO_INCREMENT = 1;

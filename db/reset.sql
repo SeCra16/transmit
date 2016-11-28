@@ -1,1 +1,0 @@
-DELETE * FROM file_statistics WHERE id=*;

@@ -18,7 +18,7 @@ FakePath.prototype.setPath = function(id) {
     dbtools.contains('false_directory', 'fake_path', url_string, function(value){
         if (!value) {
             console.log('Inserting into DB');
-            dbtools.fk_insert('false_directory', 'fake_path', url_string, 'file_statistics', id);
+            dbtools.fk_insert('false_directory', 'fake_path', url_string, 'timestamp', id);
         } else {
             FakePath.setPath(id);
         }

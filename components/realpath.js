@@ -11,7 +11,7 @@ var RealPath = function() {
 
 RealPath.prototype.setPath = function(id, filename) {
     var dbutils = this._dbutils;
-    dbutils.fk_insert('true_directory', 'real_path', filename, 'file_statistics', id);
+    dbutils.fk_insert('true_directory', 'real_path', filename, 'timestamp', id);
 };
 
 module.exports = RealPath;
