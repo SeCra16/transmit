@@ -1,4 +1,12 @@
-var Filer = require('./components/filer');
+/**
+ * Created by sgolovine on 11/28/16.
+ */
 
-var f = new Filer();
-f.setTimestamp();
+var urlParse = require('./lib/requestParser');
+
+var urlParseInstance = new urlParse('/f/sn6mF');
+
+var urlpart = urlParseInstance.trimURL()
+urlParseInstance.lookup(urlpart, function(value) {
+    console.log(value);
+});
