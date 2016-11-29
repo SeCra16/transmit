@@ -22,6 +22,7 @@ Timestamp.prototype.setTimestamp = function(callback) {
     var month = staticTimestampInstance.getMonth();
     var day = staticTimestampInstance.getDay();
     var year = staticTimestampInstance.getYear();
+    var expiration = staticTimestampInstance.getExpiration();
     dbtools.autoinsert('timestamp', 'timestamp', timestamp, function(id){
         dbtools.update('timestamp', id, 'hour', hour);
         dbtools.update('timestamp', id, 'minute', minute); // minute
@@ -29,6 +30,7 @@ Timestamp.prototype.setTimestamp = function(callback) {
         dbtools.update('timestamp', id, 'month', month); // month
         dbtools.update('timestamp', id, 'day', day); // day
         dbtools.update('timestamp', id, 'year', year);
+        dbtools.insert('expiration_date', id, 'expiration_date', expiration);
         callback(id);
     });
 

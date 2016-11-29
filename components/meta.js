@@ -13,29 +13,6 @@ var Metadata = function(fullpath, id) {
 
 };
 
-// id, filetype, filesize
-
-
-// // Get mime type
-// Metadata.getFileType = function(fpath, id) {
-//     var cstore = new CredentialStore();
-//     var dbutils = new DatabaseTools(cstore);
-//     console.log(dbutils);
-//     var mtype = mime.lookup(fpath);
-//     console.log(`@mtype ${mtype}`);
-//     dbutils.fk_insert('file_metadata', 'file_type', mtype, 'timestamp', id);
-//
-// };
-// File size
-// Metadata.getFileSize = function(fpath, id) {
-//     var cstore = new CredentialStore();
-//     var dbutils = new DatabaseTools(cstore);
-//     fs.stat(fpath, function(err, stats) {
-//         console.log(`@fsize: ${stats.size}`);
-//         dbutils.fk_insert('file_metadata', 'file_size', stats.size, 'timestamp', id);
-//     });
-// };
-
 Metadata.prototype.setData = function() {
     var lid = this._id;
     var cstore = new CredentialStore();
