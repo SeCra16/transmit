@@ -6,6 +6,8 @@ var formidable = require('formidable');
 var fs = require('fs');
 var url = require('url');
 
+var events = require('events');
+
 
 var server = app.listen(3000, function(){
     console.log('Server listening on port 3000');
@@ -15,12 +17,17 @@ var io = require('socket.io').listen(server);
 
 var urlParse = require('./lib/requestParser');
 var Filer = require('./components/filer');
+var FilenameStore = require('./lib/store/filenameStore');
+var pathStore = require('./lib/store/PathStore');
 
 var fileStore = new FilenameStore();
 var filer = new Filer(fileStore);
+var eventEmitter = new events.EventEmitter();
+
 
 app.use(express.static(path.join(__dirname, 'frontend/public')));
 app.get('/', function(req, res){
+
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/f/*', function(req, res){
@@ -31,7 +38,9 @@ app.get('/f/*', function(req, res){
     var urlpart = urlParseInstance.trimURL();
     urlParseInstance.lookup(urlpart, function(id) {
         urlParseInstance.getRealPath(id, function(filename) {
-            res.sendFile(path.join(__dirname, '/uploads/', filename));
+            // res.sendFile(path.join(__dirname, '/uploads/', filename));
+            var file = __dirname + '/uploads/' + filename;
+            res.download(file); // Set disposition and send it.
         });
     });
     // res.sendFile(path.join(__dirname, '/uploads/', filename));
@@ -68,10 +77,23 @@ app.post('/upload', function(req, res){
         // console.log(fileUtils.getFullpath());
         filer.setTimestamp();
     });
+
     // parse the incoming request containing the form data
     form.parse(req);
-});
-io.on('connection', function(socket){
-    io.emit('message', '@esignal from test.js');
+
 });
 
+io.on('connection', function(socket){
+    socket.on('submitted', function(){
+       setTimeout(function(){
+           io.emit('response', pathStore.path);
+           console.log(`@from emitter: ${pathStore.path}`);
+       }, 3000);
+    });
+});
+
+
+
+// io.sockets.on('connection', function(socket){
+//     socket.on('upload', pathStore.path);
+// });

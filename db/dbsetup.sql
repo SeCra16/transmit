@@ -6,7 +6,6 @@ CREATE TABLE `expiration_date` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `false_directory` (
-CREATE TABLE `false_directory` (
   `id` int(11) NOT NULL,
   `fake_path` varchar(45) NOT NULL,
   UNIQUE KEY `fake_path_UNIQUE` (`fake_path`),

@@ -5,7 +5,7 @@
 var credentialStore = require('../lib/store/credentialStore');
 var dbutils = require('../lib/dbutils');
 var randomstring = require('randomstring');
-
+var pstore = require('../lib/store/PathStore');
 
 
 var FakePath = function() {
@@ -18,6 +18,8 @@ FakePath.prototype.setPath = function(id) {
     dbtools.contains('false_directory', 'fake_path', url_string, function(value){
         if (!value) {
             console.log('Inserting into DB');
+            pstore.path = url_string;
+            console.log(`@pstore: ${pstore.path}`);
             dbtools.fk_insert('false_directory', 'fake_path', url_string, 'timestamp', id);
         } else {
             FakePath.setPath(id);
