@@ -62,8 +62,3 @@ $('#upload-input').on('change', function(){
 
     }
 });
-
-// var socket = io();
-// socket.on("connect", function () {
-//     console.log("Connected!");
-// });

@@ -7,7 +7,6 @@
 var RealPath = require('./realpath');
 var FakePath = require('./fakepath');
 var Timestamp = require('./timestamp');
-var FilenameStore = require('../lib/store/filenameStore');
 var Metadata = require('./meta');
 
 var Filer = function(fstoreInstance) {

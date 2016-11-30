@@ -7,18 +7,21 @@ var fs = require('fs');
 var url = require('url');
 
 
+var server = app.listen(3000, function(){
+    console.log('Server listening on port 3000');
+});
+
+var io = require('socket.io').listen(server);
 
 var urlParse = require('./lib/requestParser');
-var FilenameStore = require('./lib/store/filenameStore');
 var Filer = require('./components/filer');
 
 var fileStore = new FilenameStore();
 var filer = new Filer(fileStore);
 
 app.use(express.static(path.join(__dirname, 'frontend/public')));
-
 app.get('/', function(req, res){
-    res.sendFile(path.join(__dirname, 'frontend/views/index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/f/*', function(req, res){
     //get the pathname
@@ -68,8 +71,7 @@ app.post('/upload', function(req, res){
     // parse the incoming request containing the form data
     form.parse(req);
 });
-
-
-var server = app.listen(3000, function(){
-    console.log('Server listening on port 3000');
+io.on('connection', function(socket){
+    io.emit('message', '@esignal from test.js');
 });
+
