@@ -19,12 +19,23 @@ var urlParse = require('./lib/requestParser');
 var Filer = require('./components/filer');
 var FilenameStore = require('./lib/store/filenameStore');
 var pathStore = require('./lib/store/PathStore');
+var fileUtils = require('./lib/fileUtils');
+var dbutils = require('./lib/dbutils');
+var credentialStore = require('./lib/store/credentialStore');
+
+
+
 
 var fileStore = new FilenameStore();
 var filer = new Filer(fileStore);
-var eventEmitter = new events.EventEmitter();
+var fileutil = new fileUtils('uploads');
+
+var credentialInstance = new credentialStore();
+var dbi = new dbutils(credentialInstance);
 
 
+
+var filename = '';
 app.use(express.static(path.join(__dirname, 'frontend/public')));
 app.get('/', function(req, res){
 
@@ -38,7 +49,6 @@ app.get('/f/*', function(req, res){
     var urlpart = urlParseInstance.trimURL();
     urlParseInstance.lookup(urlpart, function(id) {
         urlParseInstance.getRealPath(id, function(filename) {
-            // res.sendFile(path.join(__dirname, '/uploads/', filename));
             var file = __dirname + '/uploads/' + filename;
             res.download(file); // Set disposition and send it.
         });
@@ -61,6 +71,8 @@ app.post('/upload', function(req, res){
     form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name));
         fileStore.setAll(file.name, form.uploadDir, path.join(form.uploadDir, file.name));
+        filename = file.name;
+
     });
 
     // log any errors that occur
@@ -88,7 +100,7 @@ io.on('connection', function(socket){
        setTimeout(function(){
            io.emit('response', pathStore.path);
            console.log(`@from emitter: ${pathStore.path}`);
-       }, 3000);
+       }, 10000);
     });
 });
 

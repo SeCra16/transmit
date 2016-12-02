@@ -46,7 +46,7 @@
         socket.emit('submitted');
     });
     socket.on('response', function(msg) {
-        $('#url_area').append($('<h2>').text(msg));
+        $('#url_area').append($('<h2>').text("http://138.197.47.54/f/" + msg));
     });
 </script>
 
